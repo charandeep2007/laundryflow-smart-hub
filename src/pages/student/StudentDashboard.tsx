@@ -28,30 +28,83 @@ export default function StudentDashboard() {
           <p className="text-muted-foreground">Manage your laundry orders and track their progress</p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 max-w-md mx-auto">
-          {dashboardCards.map((card, index) => (
-            <Card 
-              key={card.title} 
-              className="card-elegant cursor-pointer"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <CardHeader className="text-center">
-                <div className="flex justify-center mb-4">
-                  <card.icon className="h-12 w-12 text-primary" />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Place New Order - Main Action */}
+          <div className="lg:col-span-1">
+            {dashboardCards.map((card, index) => (
+              <Card 
+                key={card.title} 
+                className="card-elegant cursor-pointer"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <CardHeader className="text-center">
+                  <div className="flex justify-center mb-4">
+                    <card.icon className="h-12 w-12 text-primary" />
+                  </div>
+                  <CardTitle className="text-xl">{card.title}</CardTitle>
+                  <CardDescription>{card.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button 
+                    className={`w-full ${card.className || 'btn-gradient'}`}
+                    onClick={card.action}
+                  >
+                    Get Started
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Recent Activity */}
+          <Card className="card-elegant lg:col-span-1">
+            <CardHeader>
+              <CardTitle>Recent Activity</CardTitle>
+              <CardDescription>Your latest orders</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between p-3 bg-accent rounded-lg">
+                  <div>
+                    <p className="font-medium">Order #001</p>
+                    <p className="text-sm text-muted-foreground">Premium Wash</p>
+                  </div>
+                  <span className="status-collected">Collected</span>
                 </div>
-                <CardTitle className="text-xl">{card.title}</CardTitle>
-                <CardDescription>{card.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button 
-                  className={`w-full ${card.className || 'btn-gradient'}`}
-                  onClick={card.action}
-                >
-                  Get Started
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
+                <div className="flex items-center justify-between p-3 bg-accent rounded-lg">
+                  <div>
+                    <p className="font-medium">Order #002</p>
+                    <p className="text-sm text-muted-foreground">Normal Wash</p>
+                  </div>
+                  <span className="status-pending">Pending</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Quick Stats */}
+          <Card className="card-elegant lg:col-span-1">
+            <CardHeader>
+              <CardTitle>Quick Stats</CardTitle>
+              <CardDescription>Your summary</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground">Total Orders</span>
+                  <span className="text-2xl font-bold text-primary">12</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground">Pending</span>
+                  <span className="text-2xl font-bold text-warning">2</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground">Completed</span>
+                  <span className="text-2xl font-bold text-success">10</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </main>
 
